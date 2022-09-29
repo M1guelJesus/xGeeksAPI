@@ -1,0 +1,10 @@
+[
+    {
+        "name": "INTERVIEWER",
+        "description": "Person that will conduct the interview"
+    },
+    {
+        "name": "CANDIDATE",
+        "description": "Person that will be interviewed"
+    }
+]
