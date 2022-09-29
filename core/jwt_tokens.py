@@ -39,4 +39,4 @@ def decode_password_token(token: str) -> Dict[str, Any]:
             options={"require": ["exp"]},
         )
     except:
-        raise HTTPException(status_code=401, detail="Invalid Token")
+        raise HTTPException(status_code=401, detail=[{"token": "Invalid Token"}])

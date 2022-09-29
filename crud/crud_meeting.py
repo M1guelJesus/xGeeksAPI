@@ -21,7 +21,7 @@ class CRUDMeeting(CRUDBase[Meeting, MeetingCreate, MeetingUpdate]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         return None
 
     def update_candidate(self, db_obj: Meeting, candidate_id: UUID4):
@@ -32,7 +32,7 @@ class CRUDMeeting(CRUDBase[Meeting, MeetingCreate, MeetingUpdate]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         db.refresh(db_obj)
         return db_obj
 
@@ -43,14 +43,14 @@ class CRUDMeeting(CRUDBase[Meeting, MeetingCreate, MeetingUpdate]):
             return None
         obj = db.query(self.model).get(id)
         if obj.interviewer_id != interviewer_id:
-            raise HTTPException(status_code=403, detail="Insufficient permissions.")
+            raise HTTPException(status_code=403, detail=[{"permissions": "Insufficient permissions."}])
 
         db.delete(obj)
         try:
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         return obj
 
 

@@ -18,12 +18,12 @@ async def verify_role(user: User, authorized_roles: List[str]):
     user_role = user.user_role.role.name
 
     if not user.is_active:
-        raise HTTPException(status_code=403, detail="Blocked")
+        raise HTTPException(status_code=403, detail=[{"block": "Blocked"}])
 
     if user_role is None:
-        raise HTTPException(status_code=403, detail="Insufficient Permissions.")
+        raise HTTPException(status_code=403, detail=[{"permissions": "Insufficient Permissions."}])
 
     if user_role in authorized_roles:
         return
 
-    raise HTTPException(status_code=403, detail="Insufficient Permissions.")
+    raise HTTPException(status_code=403, detail=[{"permissions": "Insufficient Permissions."}])

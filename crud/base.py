@@ -38,7 +38,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         db.refresh(db_obj)
         return db_obj
 
@@ -60,7 +60,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         db.refresh(db_obj)
         return db_obj
 
@@ -73,7 +73,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         return obj
 
     def soft_delete(self, db_obj: ModelType) -> ModelType:
@@ -83,6 +83,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         db.refresh(db_obj)
         return db_obj

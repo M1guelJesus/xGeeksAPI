@@ -16,7 +16,7 @@ class CRUDRole(CRUDBase[Role, RoleCreate, RoleUpdate]):
             return db.query(Role).filter(Role.name == name).first()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error accessing the DB")
+            raise HTTPException(status_code=503, detail=[{"db": "Error accessing the DB"}])
 
 
 role = CRUDRole(Role)

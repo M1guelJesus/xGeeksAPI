@@ -19,7 +19,7 @@ def get_role_by_name(name: str) -> Optional[Role]:
         return db.query(Role).filter(Role.name == name).first()
     except:
         db.rollback()
-        raise HTTPException(status_code=503, detail="Error writing to DB")
+        raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
 
 def create_role(obj_in: Role) -> Role:
     db.add(obj_in)
@@ -27,7 +27,7 @@ def create_role(obj_in: Role) -> Role:
         db.commit()
     except:
         db.rollback()
-        raise HTTPException(status_code=503, detail="Error writing to DB")
+        raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
     db.refresh(obj_in)
     return obj_in
 #endregion

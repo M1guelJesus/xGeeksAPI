@@ -35,7 +35,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             db.commit()
         except:
             db.rollback()
-            raise HTTPException(status_code=503, detail="Error writing to DB")
+            raise HTTPException(status_code=503, detail=[{"error": "Error writing to DB"}])
         db.refresh(db_obj)
         return db_obj
 

@@ -40,7 +40,7 @@ async def create_meetings_opportunities(meetings: List[MeetingCreate], current_u
     await verify_role(current_user, ["INTERVIEWER"])
 
     if len(meetings) == 0:
-        raise HTTPException(status_code=400, detail="emptyList")
+        raise HTTPException(status_code=400, detail=[{"empty": "emptyList"}])
 
     crud.meeting.create_multiple(obj_in=meetings)
 
@@ -62,7 +62,7 @@ async def update_meeting(meeting_id: str, meeting_in: MeetingUpdate, current_use
     meeting: Optional[Meeting] = crud.meeting.get(id=meeting_id)
 
     if meeting is None:
-        raise HTTPException(status_code=404, detail="meetingNotFound")
+        raise HTTPException(status_code=404, detail=[{"meetings": "meetingNotFound"}])
 
     return crud.meeting.update_candidate(db_obj=meeting, candidate_id=meeting_in.candidate_id)
 

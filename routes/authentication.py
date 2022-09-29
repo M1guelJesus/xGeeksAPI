@@ -54,7 +54,7 @@ def register(user_in: UserCreate):
         raise HTTPException(status_code=400, detail=error_message)
 
     if crud.user.get_by_email(user_in.email) is not None:
-        raise HTTPException(status_code=409, detail={"email": "alreadyRegistered"})
+        raise HTTPException(status_code=409, detail=[{"email": "alreadyRegistered"}])
 
     role_aux = None
     print(user_in.interviewer)
@@ -86,10 +86,10 @@ async def login(
     user = crud.user.authenticate(credentials.username, credentials.password)
 
     if user is None:
-        raise HTTPException(status_code=400, detail="Invalid Credentials")
+        raise HTTPException(status_code=400, detail=[{"credentials": "Invalid Credentials"}])
 
     if not user.is_active:
-        raise HTTPException(status_code=403, detail="Blocked")
+        raise HTTPException(status_code=403, detail=[{"block": "Blocked"}])
 
 
     """
